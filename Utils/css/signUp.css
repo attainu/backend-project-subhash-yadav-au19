@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow&family=Roboto:wght@500&display=swap');
+
+*{
+    font-family: 'Roboto', sans-serif;
+    color: black;;
+}
+ 
+:root{
+    --top: calc(100vh-75vh);
+    --bottom: calc(100vh-75vh);
+}
+
+.header a{
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+}
+
+.header a:hover{
+    background-color: lightseagreen;
+    color: white;
+}
+
+.wrapper{
+    width:fit-content;
+    background-color: chocolate;
+    display: flex;
+    align-items: center;
+    margin: 5vh auto;
+    position: relative;
+}
+
+.image img{
+    height: 600px;
+    border-radius: 10px;
+}
+
+.container{
+    background-color: rgba(255, 255, 255, 0.5);
+    height:600px;
+    width: 350px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    opacity: 0.8;
+    position: absolute;
+    right: 0;
+}
+
+.il-wrapper{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    position: relative;
+    /* background-color: royalblue; */
+    margin-top: 10px;
+    border-bottom: 1px solid black;
+}
+
+.input{
+    width: 210px;
+    position: absolute;
+    right: 0px;
+    border: none;
+}
+
+.input:focus{
+    border-style: none;
+}
+
+.radio-wrapper{
+    display: flex;
+    width: 210px;
+    justify-content: space-evenly;
+    position: absolute;
+    right: 0px;
+}
+
+.checkbox-wrapper{
+    margin-top: 10px;
+    border-bottom: 1px solid black;
+}
+
+.checkbox-wrapper > div{
+    margin-left: 20px;
+}
+
+.select-wrapper{
+    margin-top: 10px;
+}
+
+.select-wrapper > select{
+    margin-top: 5px;
+}
+
+button{
+    margin-top: 10px;
+
+}

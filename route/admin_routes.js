@@ -25,7 +25,4 @@ router.get('/banners',admin.findBanner)
 
 
 
-
-
-
 module.exports = router
