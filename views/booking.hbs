@@ -1,0 +1,71 @@
+<main>
+    <div class="wrapper">
+        <h2 id="title">Book an Appointment</h2>
+        <form action="/query/booking" method="post">
+            <div class="il-wrapper">
+                <label for="date" class="label">Date:</label>
+                <input type="date" class="input" name="date" id="date" required>
+            </div>
+            <div class="il-wrapper">
+                <label for="time" class="label">Time:</label>
+                <input type="time" class="input" name="time" id="time" required>
+            </div>
+            <div class="il-wrapper">
+                <label for="city" class="label">City:</label>
+                <input type="text" class="input" name="city" id="city">
+            </div>
+            <div class="il-wrapper">
+                <label for="state" class="label">State:</label>
+                <input type="text" class="input" name="state" id="state">
+            </div>
+            <div class="il-wrapper">
+                <label id="for" class="label">Appointment for:</label>
+                <div class="radio">
+                    <div>
+                        <input type="radio" id="self" name="person" value="self" required>
+                        <label for="self">Self</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="not-self" name="person" value="family" required>
+                        <label for="not-self">Family</label>
+                    </div>
+                </div>
+            </div>
+            <div class="family">
+                <div class="il-wrapper">
+                    <label for="name" class="label">Name:</label>
+                    <input type="text" class="input"  name="name" id="name">
+                </div>
+                <div class="il-wrapper">
+                    <label for="email" class="label">Email:</label>
+                    <input type="email" class="input" name="email" id="email">
+                </div>
+                <div class="il-wrapper">
+                    <label for="phone" class="label">Phone:</label>
+                    <input type="number" class="input" name="phone" id="phone">
+                </div>
+            </div>
+            <div class="description-wrapper">
+                <label for="description" class="description-label">Description:</label>
+                <textarea name="description" id="description" cols="30" rows="10" required></textarea>
+            </div>
+            <div class="confirm-wrapper">
+                <button class="book">Confirm</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script>
+    let family = document.querySelector('.family')
+
+    let not_self = document.querySelector('#not-self')
+    not_self.addEventListener('click', () => {
+        family.style.display = 'block'
+    })
+
+    let self = document.querySelector('#self')
+    self.addEventListener('click', () => {
+        family.style.display = 'none'
+    })
+</script>

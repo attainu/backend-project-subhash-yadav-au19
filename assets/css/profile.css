@@ -15,7 +15,9 @@ body{
 }
 
 header{
+    display: block;
     position: fixed;
+    top: 0;
     width: 100%;
     z-index: 2;
 }
@@ -24,16 +26,20 @@ header{
     background-color: #EFEFEF;
 }
 
-.header a{
+.header > a{
     display: inline-block;
     text-decoration: none;
     color: black;
     padding: 20px;
 }
 
-.header a:hover{
+.header > a:hover{
     background-color: lightseagreen;
     color: white;
+}
+
+.enter{
+    display: none;
 }
 
 .wrapper{
@@ -41,7 +47,18 @@ header{
     top: 75px;
 }
 
-.username::before{
+.container{
+    display: flex;
+    /* background-color: blue; */
+    align-items: center;
+    padding: 20px;
+}
+
+#profilePic{
+    border-radius: 50%;
+}
+
+/* .username::before{
     content: "";
     background-image: url("../images/profileIMG.png");
     display: inline-block;
@@ -52,11 +69,16 @@ header{
     border-radius: 50%;
     margin-right: 10px;
     margin-top: 20px;
-}
+} */
 
 .username{
-    display: flex;
-    line-height: 100px;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.clinicsHead{
+    text-align: center;
+    /* background-color: green; */
 }
 
 .blog{
@@ -66,7 +88,7 @@ header{
     box-sizing: border-box;
 }
 
-.book, .clinics{
+.book, .clinics, #delete{
     cursor: pointer;
     border:none;
     color:white;
@@ -76,8 +98,45 @@ header{
 
 .clinics{
     background-color: red;
+    margin-top: 20px;
+    margin-left: 20px;
 }
 
 .book{
     background-color:blue;
+}
+
+#delete{
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    background-color: crimson;
+    text-decoration: none;
+}
+
+#addComment{
+    height: 20px;
+    width: 500px;
+    resize: none;
+}
+
+
+footer{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #A3E4DB;
+    margin-top: 100px;
+    padding: 30px;
+}
+
+.cols ul{
+    list-style: none;
+    line-height: 50px;
+    padding: 0;
+}
+
+.cols ul li a{
+    text-decoration: none;
+    font-family: 'Quicksand', sans-serif;
+    color: black;
 }

@@ -9,40 +9,96 @@ const path = require('path')
 require('dotenv').config()
 
 
+
+// To get welcome page of the website
+exports.getWelcomePage = (req, res) => {
+    res.render('index', {
+        title: 'index',
+        style: 'index.css'
+    })
+}
+
+
 // ********************user router***********************
+// From Welcome page to signup page
+exports.postToGetSignUp = (req, res) => {
+    res.render('signUp', {
+        title: 'signUp',
+        style: 'signUp.css'
+    })
+}
+
+// From Welcome page to login page
+exports.postToGetLogin = (req, res) => {
+    res.render('login', {
+        title: 'login',
+        style: 'login.css'
+    })
+}
+
+// To finish signUp
 exports.registerUser = async (req, res) => {
     try {
         // checking data validation
         const { error } = reg_valid(req.body)
+        console.log(req.body)
         if (error) {
+            console.log(1)
             return res.json(error.details[0].message)
         }
+
+        console.log(2)
 
         //checking duplicate email not save in databased
         const userdata = await User.findOne({ email: req.body.email })
         if (userdata) {
-            return res.json('email already exist')
+            return res.json('Email is already existing')
         }
+
+        console.log(3)
 
         //hash password
         const salt = await bcrypt.genSalt(10)
         const hashPassword = await bcrypt.hash(req.body.password, salt)
 
+        // upload profile picture
+        let path = req.file.path.replace(/\\/g,"/")
+        let result = await uploadCloud.uploads(path)
+
+        console.log(4)
+
+        // capitalise the first letter of the name
+        let name = req.body.name
+        let profileName = name.charAt(0).toUpperCase() + name.slice(1)
+
         //new data model create
         const newdata = new User
             ({
-                username: req.body.username,
+                name: profileName,
+                age: req.body.age,
+                gender: req.body.gender,
                 email: req.body.email,
+                phone: req.body.phone,
+                password: hashPassword,
+                profile: result.url,
+                disorders: req.body.disorders,
+                skin: req.body.skin,
                 role: req.body.role,
-                password: hashPassword
             })
-
+        
+        console.log(newdata)
 
         try {
             //save to database
-            const result = await newdata.save()
-            const { ...data } = result._doc
-            res.send(data)
+            const newUser = await newdata.save()
+            // const { ...data } = newUser._doc
+            // res.send(data)
+            res.render('profile', {
+                title: 'profile',
+                style: 'profile.css',
+                name: profileName,
+                profile: result.url
+            })
         } catch (error) {
             res.send(error)
         }
@@ -50,7 +106,6 @@ exports.registerUser = async (req, res) => {
     } catch (error) {
         res.send(error)
     }
-
 }
 
 exports.loginUser = async (req, res) => {
@@ -63,18 +118,18 @@ exports.loginUser = async (req, res) => {
             }
 
             //checking email available in database or not
-            const exitEmail = await User.findOne({ email: req.body.email })
-            if (!exitEmail) {
+            const user = await User.findOne({ email: req.body.email })
+            if (!user) {
                 return res.json('email not exist please login')
             }
 
             //compare hash password
-            const validpassword = await bcrypt.compare(req.body.password, exitEmail.password)
+            const validpassword = await bcrypt.compare(req.body.password, user.password)
             if (!validpassword) {
                 return res.json('password is incorrect')
             }
 
-            const payload = { id: exitEmail._id, role: exitEmail.role }
+            const payload = { id: user._id, role: user.role }
 
             const secret = process.env.SECRET
 
@@ -87,10 +142,20 @@ exports.loginUser = async (req, res) => {
 
             const refToken = jwt.sign(payload, ref_secret)
 
-            res.json({
-                data: exitEmail,
-                newtoken: token,
-                refToken: refToken
+
+            let name = user.name
+            let profileName = name.charAt(0).toUpperCase() + name.slice(1)
+            let profilePic = user.profile
+            // res.json({
+            //     data: user,
+            //     newtoken: token,
+            //     refToken: refToken
+            // })
+            res.render('profile', {
+                title: 'profile',
+                style: 'profile.css',
+                name: profileName,
+                profile: profilePic
             })
 
         } catch (error) {
@@ -189,8 +254,8 @@ exports.userDelete = async (req,res) =>{
 }
 
 //website dashboard
-exports.dashboard = async (req, res) => {
-    res.send('dashboard')
+exports.profile = async (req, res) => {
+    res.render('profile')
 }
 
 //comment router

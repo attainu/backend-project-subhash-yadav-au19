@@ -3,14 +3,23 @@ const Joi = require('joi');
 exports.reg_valid = (data) => {
 
     const registerSchema = Joi.object({
-        username: Joi.string()
+        name: Joi.string()
             .alphanum()
             .min(5)
             .max(255)
             .required(),
 
+        age: Joi.number()
+            .required(),
+        
+        gender: Joi.string()
+            .required(),
+        
         email: Joi.string()
             .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+            .required(),
+
+        phone: Joi.number()
             .required(),
 
         password: Joi.string()
@@ -18,12 +27,22 @@ exports.reg_valid = (data) => {
             .max(16)
             .required(),
 
-        profile:join.string()
-        .default(null),
+        confirmPassword: Joi.string()
+            .valid(Joi.ref('password'))
+            .required(),
+    
+        profile: Joi.string()
+            .default(null),
+        
+        disorders: Joi.array()
+            .required(),
 
+        skin: Joi.string()
+            .required(),
+        
         role:Joi.string()
-        .alphanum()
-        .default('member')
+            .alphanum()
+            .default('Member')
     })
     return registerSchema.validate(data);
 }
@@ -56,9 +75,7 @@ exports.booking_valid = (data) => {
             .email()
             .required(),
 
-        phone: Joi.string()
-            .min(10)
-            .max(10)
+        phone: Joi.number()
             .required(),
 
         city:Joi.string()
@@ -70,7 +87,13 @@ exports.booking_valid = (data) => {
         date:Joi.string()
         .required(),
 
-        message:Joi.string()
+        time:Joi.string()
+        .required(),
+        
+        person:Joi.string()
+        .required(),
+        
+        description:Joi.string()
         .required()
         
     })

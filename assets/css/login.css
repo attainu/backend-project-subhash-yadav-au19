@@ -3,22 +3,17 @@
 *{
     font-family: 'Roboto', sans-serif;
     color: black;;
-    margin: 0;
-    padding: 0;
 }
-
-/* body{
-    background-color: #EFEFEF;
-} */
-
+ 
 :root{
     --top: calc(100vh-75vh);
     --bottom: calc(100vh-75vh);
 }
 
 header{
-    position: fixed;
+    display: block;
     width: 100%;
+    position: fixed;
     top: 0;
     z-index: 2;
 }
@@ -27,24 +22,27 @@ header{
     background-color: #EFEFEF;
 }
 
-.header a{
+.header > a{
     display: inline-block;
     text-decoration: none;
     color: black;
     padding: 20px;
 }
 
-.header a:hover{
+.header > a:hover{
     background-color: lightseagreen;
     color: white;
 }
 
+.enter{
+    display: none;
+}
+
 .wrapper{
-    position: absolute;
     margin-top: 100px;
     width: 100%;
     height: 100%;
-    background-image: url(../images/DermaLogin.jpg);
+    background-image: url(/images/DermaLogin.jpg);
     background-size:cover;
     background-repeat: no-repeat;
     padding: 100px 0;
@@ -92,4 +90,23 @@ form{
 .forget a{
     text-decoration: none;
     color: #151515;
+}
+
+footer{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #A3E4DB;
+    padding: 30px;
+}
+
+.cols ul{
+    list-style: none;
+    line-height: 50px;
+    padding: 0;
+}
+
+.cols ul li a{
+    text-decoration: none;
+    font-family: 'Quicksand', sans-serif;
+    color: black;
 }

@@ -11,7 +11,7 @@ const bookingSchema = mongoose.Schema({
         require:true
     },
     phone:{
-        type:String,
+        type:Number,
         require:true
     },
     city:{
@@ -26,7 +26,15 @@ const bookingSchema = mongoose.Schema({
         type:String,
         require:true
     },
-    message:{
+    time:{
+        type:String,
+        require:true
+    },
+    person:{
+        type:String,
+        require:true
+    },
+    description:{
         type:String,
         require:true
     },

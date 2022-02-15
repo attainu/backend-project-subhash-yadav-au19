@@ -1,0 +1,33 @@
+<main>
+    <div class="wrapper">
+        <div class="container">
+            <img src="{{profile}}" height="50px" width="50px" id="profilePic"/>
+            <h2 class="username">{{name}}</h2>
+            <a href="/query/delete" id="delete">Delete</a>
+        </div>
+        <button type="button" onclick="getBlog()" class="clinics">GET CLINICS</button>
+        <form action="/query/openBooking" method="post" id="getPost"></form>
+    </div>
+</main>
+
+<script>
+    let getPost = document.querySelector('#getPost')
+    function getBlog() {
+        let url = "https://jsonplaceholder.typicode.com/posts"
+        fetch(url)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log(JSON.stringify(result))
+                let output = '<h1 class="clinicsHead">Clinics</h1>'
+                result.forEach(element => {
+                    output += `<div class="blog">
+                        <h3>${element.id}</h3>
+                        <p><a href="#">${element.title}</a></p>
+                        <p>${element.body}</p>
+                        <button class="book">Book appointment</button>
+                        </div>`
+                });
+                getPost.innerHTML = output;
+            })
+    }
+</script>

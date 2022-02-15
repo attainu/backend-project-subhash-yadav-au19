@@ -10,16 +10,32 @@
     --bottom: calc(100vh-75vh);
 }
 
-.header a{
+header{
+    display: block;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+}
+
+.header{
+    background-color: #EFEFEF;
+}
+
+.header > a{
     display: inline-block;
     text-decoration: none;
     color: black;
-    padding: 10px;
+    padding: 20px;
 }
 
-.header a:hover{
+.header > a:hover{
     background-color: lightseagreen;
     color: white;
+}
+
+.enter{
+    display: none;
 }
 
 .wrapper{
@@ -29,22 +45,25 @@
     align-items: center;
     margin: 5vh auto;
     position: relative;
+    top: 75px;
 }
 
 .image img{
-    height: 600px;
+    height: 800px;
+    /* width: 1000px; */
     border-radius: 10px;
 }
 
 .container{
     background-color: rgba(255, 255, 255, 0.5);
-    height:600px;
-    width: 350px;
+    height: 800px;
+    width: 370px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     opacity: 0.8;
     position: absolute;
     right: 0;
+    padding: 20px;
 }
 
 .il-wrapper{
@@ -62,6 +81,8 @@
     position: absolute;
     right: 0px;
     border: none;
+    border-radius: 3px;
+    padding: 5px;
 }
 
 .input:focus{
@@ -79,6 +100,7 @@
 .checkbox-wrapper{
     margin-top: 10px;
     border-bottom: 1px solid black;
+    padding-bottom: 10px;
 }
 
 .checkbox-wrapper > div{
@@ -89,11 +111,31 @@
     margin-top: 10px;
 }
 
-.select-wrapper > select{
-    margin-top: 5px;
+button{
+    margin-top: 20px;
+    border-style: none;
+    border-radius: 20px;
+    background-color:brown;
+    color: white;
+    padding: 10px 20px;
 }
 
-button{
-    margin-top: 10px;
+footer{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #A3E4DB;
+    padding: 30px;
+    margin-top: 100px;
+}
 
+.cols ul{
+    list-style: none;
+    line-height: 50px;
+    padding: 0;
+}
+
+.cols ul li a{
+    text-decoration: none;
+    font-family: 'Quicksand', sans-serif;
+    color: black;
 }

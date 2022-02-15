@@ -1,26 +1,55 @@
 const Booking = require('../models/booking_model')
+const User = require('../models/usermodel')
 const { booking_valid } = require('../auth/valid')
 const nodemailer = require('nodemailer');
 
+const dotenv = require('dotenv')
+dotenv.config()
 
+// to open Booking page
+exports.openBooking = (req, res) => {
+  res.render('booking',{
+    style: 'booking.css'
+  })
+}
+
+
+// to book appointment
 exports.booking = async (req, res) => {
   try {
+    if (req.body.person === 'self') {
+      try{
+        const email = 'shiva@gmail.com'
+        let user = await User.findOne({email})
+      
+        req.body.email = user.email
+        req.body.name = user.name
+        req.body.phone = user.phone
+
+      } catch(error){
+          return res.send(error)
+      }
+    }
+    
     // checking data validation
+    console.log(req.body)
+    
     const { error } = booking_valid(req.body)
     if (error) {
+      console.log(1)
       return res.json(error.details[0].message)
     }
 
     // email check for not dubplicate 
     const bookingUser = await Booking.findOne({ email: req.body.email })
     if (bookingUser) {
-      return res.json('one time one email used')
+      return res.json('You have already book an apppointment with this Email')
     }
 
     // //phone number shoube different
     const bookingUserphone = await Booking.findOne({ phone: req.body.phone })
     if (bookingUserphone) {
-      return res.json('phone number only once time used')
+      return res.json('You have already book an apppointment with this Phone')
     }
 
     //new data model create
@@ -32,7 +61,9 @@ exports.booking = async (req, res) => {
         city: req.body.city,
         state: req.body.state,
         date: req.body.date,
-        message: req.body.message
+        time: req.body.time,
+        person: req.body.person,
+        description: req.body.description
       })
 
 
